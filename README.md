@@ -121,7 +121,9 @@ docs/software/
 
 ```
 docs/
-├── TECH_ARTICLE_RLS_DEEP_DIVE.md  # 技術文章大綱：RLS 細粒度權限控制實作
+├── TECH_ARTICLE_RLS_DEEP_DIVE.md           # 技術文章大綱：RLS 細粒度權限控制實作
+├── TECH_ARTICLE_MULTI_TENANT_MIGRATION.md  # 技術文章大綱：多租戶白牌遷移
+└── DEMO_DEPLOYMENT_GUIDE.md                # Demo 環境部署指引 (demo.raceone.ai)
 ```
 
 ---
