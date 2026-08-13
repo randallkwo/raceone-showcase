@@ -45,6 +45,7 @@
 **Outlines in this repo**:
 - 📄 [Article 1 — RLS Fine-Grained Access Control](docs/TECH_ARTICLE_RLS_DEEP_DIVE.md)
 - 📄 [Article 2 — Multi-Tenant White-Label Migration](docs/TECH_ARTICLE_MULTI_TENANT_MIGRATION.md)
+- 📄 [Article 3 — Bot Gateway: LINE/Telegram Unified Routing](docs/TECH_ARTICLE_BOT_GATEWAY.md)
 
 ---
 
@@ -123,7 +124,9 @@ docs/software/
 docs/
 ├── TECH_ARTICLE_RLS_DEEP_DIVE.md           # 技術文章大綱：RLS 細粒度權限控制實作
 ├── TECH_ARTICLE_MULTI_TENANT_MIGRATION.md  # 技術文章大綱：多租戶白牌遷移
-└── DEMO_DEPLOYMENT_GUIDE.md                # Demo 環境部署指引 (demo.raceone.ai)
+├── TECH_ARTICLE_BOT_GATEWAY.md             # 技術文章大綱：Bot Gateway 統一路由
+├── DEMO_DEPLOYMENT_GUIDE.md                # Demo 環境部署指引 (demo.raceone.ai)
+└── RESUME_TEMPLATE.md                      # 履歷範本（README 同款、可直接套用）
 ```
 
 ---
