@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 180">
+<g transform="translate(10,10) scale(.6)">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0%" stop-color="#0066FF"/><stop offset="100%" stop-color="#00D4AA"/></linearGradient></defs>
+<path d="M36 128c18-58 92-95 164-82l-58 58h42l-72 72c-23-4-43-20-54-48h40l28-28H36z" fill="url(#g)"/>
+</g>
+<text x="180" y="95" font-family="Inter,Arial,sans-serif" font-size="54" font-weight="700" fill="#0A0E17">RaceOne</text>
+<text x="180" y="145" font-family="Inter,Arial,sans-serif" font-size="34" fill="#0066FF">Timing</text></svg>

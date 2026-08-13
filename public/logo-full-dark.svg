@@ -1,0 +1,22 @@
+<svg width="680" height="180" viewBox="0 0 680 180" xmlns="http://www.w3.org/2000/svg">
+  <!-- Speed lines - left side -->
+  <path d="M 10,42 L 60,42" stroke="#0066FF" stroke-width="4.5" stroke-linecap="round" opacity="0.9"/>
+  <path d="M  5,54 L 72,54" stroke="#0066FF" stroke-width="5" stroke-linecap="round"/>
+  <path d="M 15,66 L 58,66" stroke="#0066FF" stroke-width="3.5" stroke-linecap="round" opacity="0.7"/>
+  <path d="M  8,78 L 48,78" stroke="#0066FF" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
+
+  <!-- Stylized 'R' -->
+  <text x="82" y="76" font-family="'Inter Variable',-apple-system,BlinkMacSystemFont,sans-serif" font-weight="900" font-size="56" fill="#0066FF" letter-spacing="-2">R</text>
+
+  <!-- RaceOne.ai wordmark - WHITE for dark bg -->
+  <text x="148" y="60" font-family="'Inter Variable',-apple-system,BlinkMacSystemFont,sans-serif" font-weight="800" font-size="44" fill="#FFFFFF">RaceOne</text>
+  <text x="352" y="60" font-family="'Inter Variable',-apple-system,BlinkMacSystemFont,sans-serif" font-weight="400" font-size="26" fill="#00D4AA">.</text>
+  <text x="365" y="60" font-family="'Inter Variable',-apple-system,BlinkMacSystemFont,sans-serif" font-weight="600" font-size="26" fill="#F8FAFC">ai</text>
+
+  <!-- FIRST TO FINISH tagline -->
+  <text x="148" y="86" font-family="'JetBrains Mono','Inter Variable',monospace" font-weight="700" font-size="11" fill="#F8FAFC" letter-spacing="3">FIRST TO </text>
+  <text x="224" y="86" font-family="'JetBrains Mono','Inter Variable',monospace" font-weight="700" font-size="11" fill="#00D4AA" letter-spacing="3">FINISH</text>
+
+  <!-- Divider -->
+  <line x1="148" y1="96" x2="370" y2="96" stroke="#0066FF" stroke-width="1.5" opacity="0.4"/>
+</svg>
