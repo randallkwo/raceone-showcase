@@ -42,6 +42,19 @@
 | 4 | **Race-Day Timing: WebSocket + Supabase Realtime at 1M+ Writes/Event** | Segment timing, ranking calculation, reconnection, data consistency |
 | 5 | **Release QA Gate: From Manual to Browserbase Automated Quality Gates** | 7-check pipeline, user simulation scripts, false-positive filtering, CI integration |
 
+**Outlines in this repo**:
+- 📄 [Article 1 — RLS Fine-Grained Access Control](docs/TECH_ARTICLE_RLS_DEEP_DIVE.md)
+- 📄 [Article 2 — Multi-Tenant White-Label Migration](docs/TECH_ARTICLE_MULTI_TENANT_MIGRATION.md)
+
+---
+
+## 🏷️ GitHub Topics (for discoverability)
+
+Add these **topics** on the repo's GitHub page (Settings → Topics on the repo homepage)
+so recruiters and fellow engineers can find it:
+
+`nextjs` · `supabase` · `postgresql` · `typescript` · `tailwindcss` · `multi-tenant` · `saas` · `rbac` · `row-level-security` · `white-label` · `admin-dashboard` · `event-management` · `sql` · `rest-api`
+
 ---
 
 ## 🛠️ Quick Start (Reference Only)
@@ -150,6 +163,6 @@ Both check `NEXT_PUBLIC_DEMO_MODE=true` and block mutating operations with a fri
 
 ## 📝 License
 
-© 2026 RaceOne. All rights reserved.  
+© 2026 RaceOne. All rights reserved. — see [LICENSE](LICENSE).  
 This showcase repository is for **portfolio demonstration only**.  
 White-label / multi-tenant deployment available — contact: `randallkwo@hotmail.com`
