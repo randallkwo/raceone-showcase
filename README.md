@@ -126,7 +126,7 @@ docs/
 ├── TECH_ARTICLE_MULTI_TENANT_MIGRATION.md  # 技術文章大綱：多租戶白牌遷移
 ├── TECH_ARTICLE_BOT_GATEWAY.md             # 技術文章大綱：Bot Gateway 統一路由
 ├── DEMO_DEPLOYMENT_GUIDE.md                # Demo 環境部署指引 (demo.raceone.ai)
-└── RESUME_TEMPLATE.md                      # 履歷範本（README 同款、可直接套用）
+└── RESUME_TEMPLATE.md                      # 個人履歷（RaceOne 專案展示版）
 ```
 
 ---

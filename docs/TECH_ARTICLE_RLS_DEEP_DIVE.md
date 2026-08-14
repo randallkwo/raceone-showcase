@@ -512,10 +512,8 @@ raceone-showcase/
 - [ ] 文章 Markdown 完成
 - [ ] 程式碼片段整理至 Gist / GitHub 目錄
 - [ ] 架構圖（architecture.html 截圖）標註關鍵流程
-- [ ] 部落格發布 + LinkedIn / Twitter 宣傳
-- [ ] 履歷專案描述加入連結
+- [ ] 部落格發布 + LinkedIn / X 宣傳
 
 ---
 
-**預估完成時間**：2-3 個工作晚間（含程式碼整理、圖表製作、發布）  
-**優先級**：🔥 高——這是 RaceOne 最強的技術亮點，面試必聊
+**優先級**：🔥 高——這是 RaceOne 最強的技術亮點，建議優先把內容補完

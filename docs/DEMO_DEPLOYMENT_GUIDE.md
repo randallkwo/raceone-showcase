@@ -1,6 +1,6 @@
 # RaceOne Demo 環境部署指引 (demo.raceone.ai)
 
-> 目標：建立一個 **公開可瀏覽、但所有寫入操作被攔截** 的 Demo 環境，供面試官 / 客戶 / 履歷展示用。
+> 目標：建立一個 **公開可瀏覽、但所有寫入操作被攔截** 的 Demo 環境，用於展示、客戶體驗與作品集展示用。
 > 與 production 完全隔離（獨立 Supabase 專案、獨立 Vercel 部署、獨立資料庫），不影響正式資料。
 
 ---
@@ -152,4 +152,4 @@ curl -s -X POST https://demo.raceone.ai/api/races \
 
 ---
 
-**做完以上 → 在 README 把 demo 網址換成真實 `https://demo.raceone.ai`，即可放入履歷。**
+**做完以上 → 在 README 把 demo 網址換成真實 `https://demo.raceone.ai`，即可公開展示。**
