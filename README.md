@@ -125,7 +125,10 @@ docs/
 ├── TECH_ARTICLE_RLS_DEEP_DIVE.md           # 技術文章大綱：RLS 細粒度權限控制實作
 ├── TECH_ARTICLE_MULTI_TENANT_MIGRATION.md  # 技術文章大綱：多租戶白牌遷移
 ├── TECH_ARTICLE_BOT_GATEWAY.md             # 技術文章大綱：Bot Gateway 統一路由
+├── ADR_TECHNOLOGY_DECISIONS.md             # ADR 架構決策記錄（ADR-001~006）
+├── SECURITY_ARCHITECTURE.md                # 安全架構總覽（高層級設計原則）
 ├── DEMO_DEPLOYMENT_GUIDE.md                # Demo 環境部署指引 (demo.raceone.ai)
+├── DEMO_TOUR_GUIDE.md                      # Demo 操作導覽（展示腳本）
 └── RESUME_TEMPLATE.md                      # 個人履歷（RaceOne 專案展示版）
 ```
 
