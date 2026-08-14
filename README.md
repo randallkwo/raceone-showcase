@@ -46,6 +46,8 @@
 - 📄 [Article 1 — RLS Fine-Grained Access Control](docs/TECH_ARTICLE_RLS_DEEP_DIVE.md)
 - 📄 [Article 2 — Multi-Tenant White-Label Migration](docs/TECH_ARTICLE_MULTI_TENANT_MIGRATION.md)
 - 📄 [Article 3 — Bot Gateway: LINE/Telegram Unified Routing](docs/TECH_ARTICLE_BOT_GATEWAY.md)
+- 📄 [Article 4 — Race-Day Real-Time Timing System](docs/TECH_ARTICLE_RACE_DAY_TIMING.md)
+- 📄 [Article 5 — Release QA Gate](docs/TECH_ARTICLE_QA_GATE.md)
 
 ---
 
@@ -125,6 +127,8 @@ docs/
 ├── TECH_ARTICLE_RLS_DEEP_DIVE.md           # 技術文章大綱：RLS 細粒度權限控制實作
 ├── TECH_ARTICLE_MULTI_TENANT_MIGRATION.md  # 技術文章大綱：多租戶白牌遷移
 ├── TECH_ARTICLE_BOT_GATEWAY.md             # 技術文章大綱：Bot Gateway 統一路由
+├── TECH_ARTICLE_RACE_DAY_TIMING.md         # 技術文章大綱：即時計時系統
+├── TECH_ARTICLE_QA_GATE.md                 # 技術文章大綱：Release QA Gate
 ├── ADR_TECHNOLOGY_DECISIONS.md             # ADR 架構決策記錄（ADR-001~006）
 ├── SECURITY_ARCHITECTURE.md                # 安全架構總覽（高層級設計原則）
 ├── DEMO_DEPLOYMENT_GUIDE.md                # Demo 環境部署指引 (demo.raceone.ai)
