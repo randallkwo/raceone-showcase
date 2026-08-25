@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RaceOne.ai 使用者指南 — SOP</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background: #020617;
+      min-height: 100vh;
+      padding: 2rem;
+      color: white;
+    }
+    .container { max-width: 960px; margin: 0 auto; }
+
+    /* ── Header ── */
+    .header { margin-bottom: 2.5rem; display: flex; align-items: center; gap: 1rem; }
+    .logo { width: 44px; height: 44px; background: linear-gradient(135deg,#0066FF,#00D4AA); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; color: white; flex-shrink: 0; }
+    .header h1 { font-size: 1.5rem; font-weight: 700; }
+    .header .sub { color: #94a3b8; font-size: 0.8rem; margin-top: 2px; }
+
+    /* ── ToC ── */
+    .toc { background: rgba(30,41,59,.4); border: 1px solid #1e293b; border-radius: 12px; padding: 1.5rem; margin-bottom: 2.5rem; }
+    .toc h2 { font-size: 0.9rem; color: #22d3ee; margin-bottom: 1rem; }
+    .toc ol { list-style: none; counter-reset: toc; }
+    .toc li { counter-increment: toc; margin-bottom: 0.4rem; }
+    .toc li::before { content: counter(toc); background: #1e293b; color: #22d3ee; font-size: 0.7rem; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-right: 0.6rem; }
+    .toc a { color: #94a3b8; text-decoration: none; font-size: 0.82rem; }
+    .toc a:hover { color: #22d3ee; }
+
+    /* ── Sections ── */
+    .section {
+      background: rgba(15,23,42,.5);
+      border: 1px solid #1e293b;
+      border-radius: 14px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    .section-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; }
+    .step-badge {
+      background: #1e293b; color: #22d3ee;
+      font-size: 0.7rem; font-weight: 600;
+      width: 28px; height: 28px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .section h2 { font-size: 1.1rem; font-weight: 600; }
+    .section h3 { font-size: 0.9rem; color: #94a3b8; margin: 1.2rem 0 0.5rem; font-weight: 500; }
+    .section p, .section li { color: #cbd5e1; font-size: 0.82rem; line-height: 1.7; }
+    .section ul, .section ol { padding-left: 1.2rem; margin: 0.6rem 0; }
+    .section li { margin-bottom: 0.3rem; }
+    .section code { background: #1e293b; padding: 1px 6px; border-radius: 4px; font-size: 0.75rem; color: #22d3ee; }
+
+    /* ── Mockup Screens (CSS-drawn UI previews) ── */
+    .mockup {
+      margin: 1.2rem 0;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #0f172a;
+    }
+    .mockup-bar {
+      background: #1e293b; padding: 0.4rem 1rem;
+      display: flex; align-items: center; gap: 0.5rem;
+      border-bottom: 1px solid #334155;
+    }
+    .mockup-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .mockup-dot.r { background: #ef4444; }
+    .mockup-dot.y { background: #eab308; }
+    .mockup-dot.g { background: #22c55e; }
+    .mockup-title { font-size: 0.65rem; color: #64748b; margin-left: 0.3rem; }
+
+    .mockup-body { padding: 1rem 1.2rem; }
+    .mockup-body .tag {
+      display: inline-block; font-size: 0.6rem; padding: 2px 8px; border-radius: 999px;
+      font-weight: 500; margin-bottom: 0.6rem;
+    }
+    .mockup-body .tag.green { background: rgba(0,212,170,.15); color: #00D4AA; }
+    .mockup-body .tag.blue { background: rgba(0,102,255,.15); color: #0066FF; }
+    .mockup-body .tag.orange { background: rgba(251,146,60,.2); color: #fb923c; }
+
+    .mock-card { background: rgba(30,41,59,.3); border-radius: 8px; padding: 0.8rem; margin-bottom: 0.6rem; }
+    .mock-card .row { display: flex; justify-content: space-between; align-items: center; }
+    .mock-card .row .name { font-size: 0.78rem; color: #e2e8f0; }
+    .mock-card .row .meta { font-size: 0.65rem; color: #64748b; }
+    .mock-card .row .status { font-size: 0.6rem; color: #00D4AA; }
+    .mock-btn {
+      display: inline-block; font-size: 0.65rem; padding: 4px 14px; border-radius: 6px;
+      font-weight: 500; cursor: default;
+    }
+    .mock-btn.primary { background: #ea580c; color: white; }
+    .mock-btn.secondary { background: #1e293b; color: #94a3b8; border: 1px solid #334155; }
+
+    .mock-form { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+    .mock-form .full { grid-column: 1 / -1; }
+    .mock-form label { font-size: 0.6rem; color: #94a3b8; display: block; margin-bottom: 2px; }
+    .mock-input { background: #1e293b; border: 1px solid #334155; border-radius: 4px; height: 28px; width: 100%; }
+    .mock-textarea { background: #1e293b; border: 1px solid #334155; border-radius: 4px; height: 54px; width: 100%; }
+
+    /* ── Chat bubbles (LINE Bot) ── */
+    .chat { background: #0c1426; border-radius: 10px; padding: 1rem; margin: 1rem 0; }
+    .chat-bubble { max-width: 75%; padding: 0.5rem 0.8rem; border-radius: 12px; font-size: 0.75rem; margin-bottom: 0.5rem; line-height: 1.5; }
+    .chat-bubble.in { background: #1e293b; color: #e2e8f0; margin-right: auto; border-bottom-left-radius: 4px; }
+    .chat-bubble.out { background: #0066FF; color: white; margin-left: auto; border-bottom-right-radius: 4px; }
+
+    /* ── Notes / Tips ── */
+    .tip {
+      background: rgba(0,212,170,.08); border-left: 3px solid #00D4AA;
+      padding: 0.8rem 1rem; border-radius: 0 8px 8px 0; margin: 1rem 0;
+    }
+    .tip p { font-size: 0.75rem; color: #5eead4; }
+    .tip strong { color: #00D4AA; }
+
+    .warn {
+      background: rgba(251,146,60,.08); border-left: 3px solid #fb923c;
+      padding: 0.8rem 1rem; border-radius: 0 8px 8px 0; margin: 1rem 0;
+    }
+    .warn p { font-size: 0.75rem; color: #fdba74; }
+    .warn strong { color: #fb923c; }
+
+    .footer { text-align: center; margin-top: 2rem; color: #475569; font-size: 0.7rem; }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="header">
+    <div class="logo">R1</div>
+    <div>
+      <h1>RaceOne.ai 使用指南</h1>
+      <div class="sub">超馬智慧平台 · 註冊 x 報名 x LINE Bot 一條龍操作 SOP</div>
+    </div>
+  </div>
+
+  <!-- ═══ ToC ═══ -->
+  <div class="toc">
+    <h2>📑 目錄</h2>
+    <ol>
+      <li><a href="#sec1">瀏覽賽事與報名</a></li>
+      <li><a href="#sec2">填寫報名資料與送出</a></li>
+      <li><a href="#sec3">線上付款 (綠界金流)</a></li>
+      <li><a href="#sec4">LINE Bot — 加入好友與基本指令</a></li>
+      <li><a href="#sec5">LINE Bot — LIFF 綁定與群組用法</a></li>
+      <li><a href="#sec6">後台管理 — 登入與儀表板</a></li>
+      <li><a href="#sec7">後台管理 — 賽事與報名管理</a></li>
+      <li><a href="#sec8">LINE Bot 管理指令</a></li>
+      <li><a href="#sec9">常見問題</a></li>
+    </ol>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- 1. 瀏覽賽事與報名 -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="section" id="sec1">
+    <div class="section-header"><span class="step-badge">1</span><h2>瀏覽賽事與報名</h2></div>
+
+    <h3>🔹 進入賽事列表</h3>
+    <p>開啟瀏覽器前往 <code>https://www.raceone.ai/events</code>（或各賽事專屬網域，如 <code>changming.raceone.ai/events</code>）。</p>
+
+    <div class="mockup">
+      <div class="mockup-bar">
+        <span class="mockup-dot r"></span><span class="mockup-dot y"></span><span class="mockup-dot g"></span>
+        <span class="mockup-title">↗ www.raceone.ai/events</span>
+      </div>
+      <div class="mockup-body">
+        <span class="tag green">開放報名中</span>
+        <div class="mock-card">
+          <div class="row"><span class="name">🏃 2025 南橫超馬</span><span class="status">報名開放</span></div>
+          <div class="row" style="margin-top:4px"><span class="meta">2025/03/08 · 台東 · 100K / 60K</span></div>
+          <div style="margin-top:8px; display:flex; gap:6px">
+            <span class="mock-btn secondary">查看成績</span>
+            <span class="mock-btn primary">立即報名</span>
+          </div>
+        </div>
+        <div class="mock-card">
+          <div class="row"><span class="name">🏃 2025 高雄超馬</span><span class="status" style="color:#94a3b8;">已結束</span></div>
+          <div class="row" style="margin-top:4px"><span class="meta">2025/05/17 · 高雄 · 50K / 全馬</span></div>
+          <div style="margin-top:8px"><span class="mock-btn secondary">查看成績</span></div>
+        </div>
+      </div>
+    </div>
+
+    <p>頁面分為 <strong style="color:#00D4AA;">「開放報名中」</strong> 與 <strong style="color:#94a3b8;">「歷屆賽事」</strong> 兩區。</p>
+    <p>點擊賽事卡片上的 <span class="mock-btn primary" style="font-size:0.6rem; padding:2px 10px;">立即報名</span> 按鈕進入報名流程。</p>
+
+    <div class="tip"><p><strong>💡 提示：</strong> 賽事也可透過 LINE Bot 輸入 <code>/register</code> 查詢開放報名的賽事列表。</p></div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- 2. 填寫報名資料與送出 -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="section" id="sec2">
+    <div class="section-header"><span class="step-badge">2</span><h2>填寫報名資料與送出</h2></div>
+
+    <h3>🔹 選擇組別</h3>
+    <p>進入報名頁後，先從下拉選單選擇參賽組別（例如 100K、60K、全馬），金額會自動顯示。</p>
+
+    <div class="mockup">
+      <div class="mockup-bar">
+        <span class="mockup-dot r"></span><span class="mockup-dot y"></span><span class="mockup-dot g"></span>
+        <span class="mockup-title">↗ 報名 — 2025 南橫超馬</span>
+      </div>
+      <div class="mockup-body">
+        <span class="tag orange">報名資訊</span>
+        <div class="mock-form">
+          <div class="full">
+            <label>參賽組別 *</label>
+            <div class="mock-input" style="display:flex;align-items:center;padding:0 8px;font-size:0.65rem;color:#94a3b8">▼ 100K 男子組 (NT$3,200)</div>
+          </div>
+          <div><label>姓名 *</label><div class="mock-input"></div></div>
+          <div><label>Email *</label><div class="mock-input"></div></div>
+          <div><label>手機 *</label><div class="mock-input"></div></div>
+          <div><label>出生日期 *</label><div class="mock-input"></div></div>
+          <div><label>性別</label><div class="mock-input" style="display:flex;align-items:center;padding:0 8px;font-size:0.65rem;color:#94a3b8">▼ 請選擇</div></div>
+          <div><label>衣服尺寸</label><div class="mock-input" style="display:flex;align-items:center;padding:0 8px;font-size:0.65rem;color:#94a3b8">▼ 請選擇</div></div>
+          <div><label>緊急聯絡人 *</label><div class="mock-input"></div></div>
+          <div><label>緊急聯絡人電話 *</label><div class="mock-input"></div></div>
+          <div class="full"><label>特殊需求／備註</label><div class="mock-textarea"></div></div>
+        </div>
+        <div style="margin-top:12px;display:flex;justify-content:flex-end;gap:8px">
+          <span class="mock-btn secondary">取消</span>
+          <span class="mock-btn primary">送出報名</span>
+        </div>
+      </div>
+    </div>
+
+    <h3>🔹 必填欄位</h3>
+    <ul>
+      <li><strong style="color:#fb7185;">*</strong> 標記為必填：姓名、Email、手機、緊急聯絡人資訊</li>
+      <li>若賽事有自訂欄位（如 T 恤尺寸、住宿需求），會依組別動態顯示</li>
+      <li>送出前請確認「緊急聯絡人資訊正確」</li>
+    </ul>
+
+    <div class="warn">
+      <p><strong>⚠️ 注意：</strong> Email 將作為您的帳號。送出後系統會自動建立帳號，報名完成後可登入後台查詢報名狀態。</p>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- 3. 線上付款 -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="section" id="sec3">
+    <div class="section-header"><span class="step-badge">3</span><h2>線上付款 (綠界金流)</h2></div>
+
+    <h3>🔹 流程</h3>
+    <ol>
+      <li>報名表送出後，系統自動建立報名記錄並產生付款訂單</li>
+      <li>瀏覽器新分頁自動開啟 <strong style="color:#fb923c;">綠界 NewebPay</strong> 付款頁面</li>
+      <li>選擇付款方式：<strong style="color:#22d3ee;">信用卡</strong> / <strong style="color:#22d3ee;">ATM 轉帳</strong> / <strong style="color:#22d3ee;">超商代碼</strong></li>
+      <li>完成付款後，頁面顯示「報名與付款完成」確認畫面</li>
+    </ol>
+
+    <div class="mockup">
+      <div class="mockup-bar">
+        <span class="mockup-dot r"></span><span class="mockup-dot y"></span><span class="mockup-dot g"></span>
+        <span class="mockup-title">✅ 付款成功</span>
+      </div>
+      <div class="mockup-body" style="text-align:center;padding:2rem 1.2rem">
+        <div style="font-size:2.5rem;color:#00D4AA;margin-bottom:0.8rem">✓</div>
+        <div style="font-size:1rem;font-weight:600">報名與付款完成！</div>
+        <div style="font-size:0.7rem;color:#94a3b8;margin-top:0.5rem">感謝您的報名，付款已確認。<br>確認信將寄送至您的 Email</div>
+        <div style="margin-top:1.2rem">
+          <span class="mock-btn primary">返回賽事列表</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip"><p><strong>💡 提示：</strong> 若付款失敗，可從報名頁重新付款。付款完成後，確認信會寄到您填寫的 Email。</p></div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- 4. LINE Bot — 加入好友 -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="section" id="sec4">
+    <div class="section-header"><span class="step-badge">4</span><h2>LINE Bot — 加入好友與基本指令</h2></div>
+
+    <h3>🔹 加入好友</h3>
+    <ol>
+      <li>打開 LINE APP</li>
+      <li>搜尋 <code style="font-size:0.9rem;color:#00D4AA;">@8958fiiy</code> 或掃描官方 QR Code</li>
+      <li>加入好友後即可開始使用 <strong style="color:#22d3ee;">@raceone.ai</strong> Bot</li>
+    </ol>
+
+    <div class="mockup" style="max-width:360px">
+      <div class="mockup-bar">
+        <span class="mockup-dot r"></span><span class="mockup-dot y"></span><span class="mockup-dot g"></span>
+        <span class="mockup-title">LINE</span>
+      </div>
+      <div class="mockup-body" style="padding:0.8rem">
+        <div style="text-align:center;margin-bottom:0.6rem">
+          <div style="width:44px;height:44px;background:linear-gradient(135deg,#0066FF,#00D4AA);border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;color:white;margin:0 auto 4px">R1</div>
+          <div style="font-size:0.78rem;font-weight:600">RaceOne.ai</div>
+          <div style="font-size:0.6rem;color:#64748b">@8958fiiy</div>
+        </div>
+        <div class="chat">
+          <div class="chat-bubble in">您好！我是 RaceOne 智慧助理，請輸入 /help 查看可用指令</div>
+          <div class="chat-bubble out" style="font-size:0.65rem;color:#94a3b8">/help</div>
+          <div class="chat-bubble in">
+            🤖 RaceOne (changming) 指令列表：<br>
+            /help — 顯示可用指令<br>
+            /register — 查詢開放報名的賽事<br>
+            /myreg — 查詢我的報名記錄<br>
+            /status — 查詢賽事狀態
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>🔹 可用指令 (私訊/群組皆可)</h3>
+    <table style="width:100%;font-size:0.75rem;border-collapse:collapse;margin:0.8rem 0">
+      <tr style="background:#1e293b"><th style="padding:6px 10px;text-align:left;color:#22d3ee;border-bottom:1px solid #334155">指令</th><th style="padding:6px 10px;text-align:left;color:#94a3b8;border-bottom:1px solid #334155">功能</th></tr>
+      <tr><td style="padding:5px 10px;border-bottom:1px solid #1e293b"><code>/help</code></td><td style="padding:5px 10px;color:#94a3b8;border-bottom:1px solid #1e293b">顯示所有可用指令</td></tr>
+      <tr><td style="padding:5px 10px;border-bottom:1px solid #1e293b"><code>/register</code></td><td style="padding:5px 10px;color:#94a3b8;border-bottom:1px solid #1e293b">查詢目前開放報名的賽事</td></tr>
+      <tr><td style="padding:5px 10px;border-bottom:1px solid #1e293b"><code>/myreg</code></td><td style="padding:5px 10px;color:#94a3b8;border-bottom:1px solid #1e293b">查詢您已綁定帳號的報名記錄</td></tr>
+      <tr><td style="padding:5px 10px"><code>/status</code></td><td style="padding:5px 10px;color:#94a3b8">查詢指定賽事的目前狀態</td></tr>
+    </table>
+
+    <div class="tip"><p><strong>💡 群組用法：</strong> 在 LINE 群組中 <code>@raceone.ai /register</code>（需 tag 機器人）即可查詢，單純 <code>/register</code> 也能觸發。</p></div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- 5. LIFF 綁定與群組用法 -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="section" id="sec5">
+    <div class="section-header"><span class="step-badge">5</span><h2>LINE Bot — LIFF 綁定與群組用法</h2></div>
+
+    <h3>🔹 為什麼需要綁定？</h3>
+    <p>綁定 LINE 帳號後，Bot 才能識別您的身份，為您查詢個人報名記錄、使用 AI 助理功能。</p>
+
+    <h3>🔹 綁定步驟</h3>
+    <ol>
+      <li>在「設定 / 個人設定」頁面，點擊 <strong style="color:#22c55e;">「綁定 LINE」</strong> 按鈕</li>
+      <li>LINE 授權視窗彈出，點擊「同意」</li>
+      <li>系統自動取得 LINE User ID，完成綁定</li>
+    </ol>
+
+    <div class="mockup" style="max-width:440px">
+      <div class="mockup-bar">
+        <span class="mockup-dot r"></span><span class="mockup-dot y"></span><span class="mockup-dot g"></span>
+        <span class="mockup-title">↗ 個人設定 — LINE 綁定</span>
+      </div>
+      <div class="mockup-body">
+        <div class="mock-card">
+          <div class="row">
+            <span class="name">📱 LINE 綁定</span>
+            <span class="status">未綁定</span>
+          </div>
+          <div style="font-size:0.65rem;color:#64748b;margin-top:4px">綁定後可在 LINE Bot 使用查詢功能</div>
+          <div style="margin-top:10px">
+            <span class="mock-btn" style="background:#16a34a;color:white;font-size:0.65rem;padding:4px 14px;border-radius:6px">綁定 LINE</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>🔹 群組對話規則</h3>
+    <table style="width:100%;font-size:0.72rem;border-collapse:collapse;margin:0.8rem 0">
+      <tr style="background:#1e293b"><th style="padding:6px 10px;text-align:left;color:#22d3ee;border-bottom:1px solid #334155">訊息類型</th><th style="padding:6px 10px;text-align:left;color:#94a3b8;border-bottom:1px solid #334155">Bot 是否回覆</th></tr>
+      <tr><td style="padding:5px 10px;border-bottom:1px solid #1e293b"><code>@raceone.ai /register</code> (有 tag 機器人)</td><td style="padding:5px 10px;color:#00D4AA;border-bottom:1px solid #1e293b">✅ 回覆</td></tr>
+      <tr><td style="padding:5px 10px;border-bottom:1px solid #1e293b"><code>/help</code> (指令前綴)</td><td style="padding:5px 10px;color:#00D4AA;border-bottom:1px solid #1e293b">✅ 回覆</td></tr>
+      <tr><td style="padding:5px 10px;border-bottom:1px solid #1e293b"><code>@ 今天天氣如何</code> (單純 @ 開頭)</td><td style="padding:5px 10px;color:#fb7185;border-bottom:1px solid #1e293b">❌ 不回覆</td></tr>
+      <tr><td style="padding:5px 10px;border-bottom:1px solid #1e293b"><code>這週末有人要練跑嗎？</code> (一般閒聊)</td><td style="padding:5px 10px;color:#fb7185;border-bottom:1px solid #1e293b">❌ 不回覆</td></tr>
+      <tr><td style="padding:5px 10px">群組中 Bot 的 AI 回覆（LLM 查詢）</td><td style="padding:5px 10px;color:#94a3b8">僅綁定使用者可觸發</td></tr>
+    </table>
+
+    <div class="warn"><p><strong>⚠️ 注意：</strong> 群組中只有明確 <code>@raceone.ai</code> Tag 到機器人才會回覆。單純在訊息中輸入 @ 符號不會觸發 Bot。</p></div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- 6. 後台管理 — 登入與儀表板 -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="section" id="sec6">
+    <div class="section-header"><span class="step-badge">6</span><h2>後台管理 — 登入與儀表板</h2></div>
+
+    <h3>🔹 登入</h3>
+    <ol>
+      <li>開啟 <code>https://www.raceone.ai/login</code></li>
+      <li>輸入管理員發給您的 <strong>Email</strong> 與 <strong>密碼</strong></li>
+      <li>點擊「登入」進入後台</li>
+    </ol>
+
+    <div class="mockup" style="max-width:400px">
+      <div class="mockup-bar">
+        <span class="mockup-dot r"></span><span class="mockup-dot y"></span><span class="mockup-dot g"></span>
+        <span class="mockup-title">↗ 登入 RaceOne</span>
+      </div>
+      <div class="mockup-body">
+        <div style="text-align:center;margin-bottom:1rem">
+          <div style="width:40px;height:40px;background:linear-gradient(135deg,#0066FF,#00D4AA);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;color:white;margin:0 auto 4px">R1</div>
+          <div style="font-size:0.9rem;font-weight:600">管理後台</div>
+        </div>
+        <div style="margin-bottom:0.6rem"><label style="font-size:0.6rem;color:#94a3b8">Email</label><div class="mock-input" style="height:32px"></div></div>
+        <div style="margin-bottom:1rem"><label style="font-size:0.6rem;color:#94a3b8">密碼</label><div class="mock-input" style="height:32px"></div></div>
+        <div style="text-align:center"><span class="mock-btn primary" style="width:100%;text-align:center">登入</span></div>
+        <div style="text-align:center;margin-top:0.5rem;font-size:0.6rem;color:#64748b">忘記密碼？</div>
+      </div>
+    </div>
+
+    <h3>🔹 儀表板</h3>
+    <p>登入後進入儀表板，可快速查看：</p>
+    <ul>
+      <li>📊 賽事統計 — 報名人數、完賽率</li>
+      <li>💰 營收概覽 — 總收入、待付款筆數</li>
+      <li>🔔 待辦事項 — 待審核報名、即將截止賽事</li>
+    </ul>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- 7. 後台 — 賽事與報名管理 -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="section" id="sec7">
+    <div class="section-header"><span class="step-badge">7</span><h2>後台管理 — 賽事與報名管理</h2></div>
+
+    <h3>🔹 賽事管理</h3>
+    <p>左側導航 → <strong style="color:#22d3ee;">賽事管理</strong></p>
+    <ul>
+      <li>建立新賽事：設定名稱、日期、地點、組別</li>
+      <li>編輯賽事：修改狀態（草稿 → 發布 → 報名開放 → 進行中 → 已完成）</li>
+      <li>管理組別：設定距離、報名費、名額上限</li>
+      <li>自訂報名欄位：依組別設定額外欄位與條件邏輯</li>
+    </ul>
+
+    <h3>🔹 報名管理</h3>
+    <p>左側導航 → <strong style="color:#22d3ee;">報名管理</strong></p>
+    <ul>
+      <li>瀏覽所有報名記錄（姓名、組別、付款狀態、號碼布）</li>
+      <li>篩選依：狀態、付款、賽事、組別</li>
+      <li>手動編輯：修改號碼布、備註、緊急聯絡資訊</li>
+      <li>匯出報名清單（CSV / Excel）</li>
+    </ul>
+
+    <h3>🔹 角色權限</h3>
+    <table style="width:100%;font-size:0.72rem;border-collapse:collapse;margin:0.8rem 0">
+      <tr style="background:#1e293b"><th style="padding:6px 10px;text-align:left;color:#22d3ee;border-bottom:1px solid #334155">角色</th><th style="padding:6px 10px;text-align:left;color:#94a3b8;border-bottom:1px solid #334155">權限範圍</th></tr>
+      <tr><td style="padding:5px 10px;border-bottom:1px solid #1e293b;color:#fbbf24">super_admin</td><td style="padding:5px 10px;color:#94a3b8;border-bottom:1px solid #1e293b">所有功能、建立賽事、管理用戶角色</td></tr>
+      <tr><td style="padding:5px 10px;border-bottom:1px solid #1e293b;color:#22d3ee">admin</td><td style="padding:5px 10px;color:#94a3b8;border-bottom:1px solid #1e293b">賽事管理、報名管理、檢視財務</td></tr>
+      <tr><td style="padding:5px 10px;border-bottom:1px solid #1e293b;color:#34d399">manager</td><td style="padding:5px 10px;color:#94a3b8;border-bottom:1px solid #1e293b">日常營運、檢視報名、編輯組別</td></tr>
+      <tr><td style="padding:5px 10px;border-bottom:1px solid #1e293b;color:#fb923c">finance</td><td style="padding:5px 10px;color:#94a3b8;border-bottom:1px solid #1e293b">僅財務報表與付款記錄</td></tr>
+      <tr><td style="padding:5px 10px;color:#a78bfa">viewer</td><td style="padding:5px 10px;color:#94a3b8">唯讀檢視所有資料</td></tr>
+    </table>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- 8. 管理指令 -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="section" id="sec8">
+    <div class="section-header"><span class="step-badge">8</span><h2>LINE Bot 管理指令</h2></div>
+
+    <p>以下指令需綁定 LINE 且具備管理權限（建議群組中使用，需 tag <code>@raceone.ai</code>）。</p>
+
+    <table style="width:100%;font-size:0.72rem;border-collapse:collapse;margin:0.8rem 0">
+      <tr style="background:#1e293b"><th style="padding:6px 10px;text-align:left;color:#22d3ee;border-bottom:1px solid #334155">指令</th><th style="padding:6px 10px;text-align:left;color:#94a3b8;border-bottom:1px solid #334155">功能</th><th style="padding:6px 10px;text-align:left;color:#94a3b8;border-bottom:1px solid #334155">權限</th></tr>
+      <tr><td style="padding:5px 10px;border-bottom:1px solid #1e293b"><code>/status</code></td><td style="padding:5px 10px;color:#94a3b8;border-bottom:1px solid #1e293b">查詢目前賽事狀態與報名統計</td><td style="padding:5px 10px;color:#94a3b8;border-bottom:1px solid #1e293b">所有用戶</td></tr>
+      <tr><td style="padding:5px 10px;border-bottom:1px solid #1e293b"><code>/count</code></td><td style="padding:5px 10px;color:#94a3b8;border-bottom:1px solid #1e293b">查詢各組別人數統計</td><td style="padding:5px 10px;color:#94a3b8;border-bottom:1px solid #1e293b">所有用戶</td></tr>
+      <tr><td style="padding:5px 10px"><code>/list</code></td><td style="padding:5px 10px;color:#94a3b8">列出所有已報名跑者（簡易版）</td><td style="padding:5px 10px;color:#fbbf24">管理員以上</td></tr>
+    </table>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- 9. FAQ -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="section" id="sec9">
+    <div class="section-header"><span class="step-badge">9</span><h2>常見問題 (FAQ)</h2></div>
+
+    <h3>❓ 忘記密碼怎麼辦？</h3>
+    <p>到 <code>/forgot-password</code> 頁面輸入註冊 Email，系統會寄送密碼重設信。</p>
+
+    <h3>❓ 報名後沒收到確認信？</h3>
+    <p>請檢查垃圾郵件匣。若仍未收到，可至後台「報名管理」查詢狀態，或聯繫管理員。</p>
+
+    <h3>❓ LINE Bot 不回訊息？</h3>
+    <ul>
+      <li>確認是否在 <strong style="color:#22d3ee;">私訊</strong> 中（群組需 tag 機器人）</li>
+      <li>確認是否已 <strong style="color:#22d3ee;">綁定 LINE 帳號</strong>（後台 → 個人設定）</li>
+      <li>確認使用正確指令格式（以 <code>/</code> 或 <code>!</code> 開頭）</li>
+    </ul>
+
+    <h3>❓ 可以在群組使用 AI 助理聊天嗎？</h3>
+    <p>可以，需在群組中 <code>@raceone.ai</code> 並輸入問題。AI 助理僅限已綁定 LINE 且經授權的使用者使用。</p>
+
+    <h3>❓ 如何修改個人資料？</h3>
+    <p>登入後台 → 右上角個人頭像 → <strong style="color:#22d3ee;">個人設定</strong>，可修改顯示名稱、電話、綁定 LINE。</p>
+
+    <h3>❓ 付款失敗怎麼辦？</h3>
+    <p>回到報名頁重新操作，系統會建立新的付款訂單。若持續失敗，請聯繫管理員協助。</p>
+  </div>
+
+  <!-- ═══ FOOTER ═══ -->
+  <div class="footer">
+    RaceOne.ai 智慧平台 · docs/USER_GUIDE.html · 更新於 2026-08-25
+  </div>
+
+</div>
+</body>
+</html>
