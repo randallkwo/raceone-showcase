@@ -32,6 +32,29 @@
 
 ---
 
+## 📚 0-to-1 實戰課程 (Course)
+
+> **從零到一，完整教學** — 適合學生、開發者學習從網域申請到部署上線的完整 SaaS 開發流程。
+
+| 章節 | 主題 | 篇幅 |
+|------|------|------|
+| 📖 [課程總覽](course/README.md) | 學習目標、技術棧、課綱 | — |
+| 00 | [前置知識與環境準備](course/00-pre-requisites.md) | 30 min |
+| 01 | [網域申請與 DNS 設定](course/01-domain-and-dns.md) | 20 min |
+| 02 | [基礎架構規劃](course/02-infrastructure.md) | 30 min |
+| 03 | [前端開發實戰](course/03-frontend-setup.md) | 45 min |
+| 04 | [後端資料庫設計](course/04-backend-database.md) | 45 min |
+| 05 | [LINE Bot 整合](course/05-integration-line.md) | 30 min |
+| 06 | [AI Agent 整合](course/06-ai-agent-hermes.md) | 30 min |
+| 07 | [部署流程與 CI/CD](course/07-deployment-cicd.md) | 20 min |
+| 08 | [QA 品管流程](course/08-qa-process.md) | 30 min |
+| 09 | [踩坑記錄與教訓](course/09-lessons-learned.md) | 20 min |
+| 10 | [附錄與工具速查表](course/10-appendix.md) | — |
+
+> 🎯 閱讀全部約 **5 小時**，實作約 **15-20 小時**。適合做為工作坊或課程教材。
+
+---
+
 ## 📚 Technical Deep-Dives (Blog Series)
 
 | # | Title | Key Topics |

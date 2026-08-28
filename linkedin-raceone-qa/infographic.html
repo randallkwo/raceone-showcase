@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RaceOne QA Transformation</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', 'Noto Sans TC', sans-serif;
+  background: #0A0E17;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 40px;
+}
+
+/* === MAIN CARD === */
+.card {
+  max-width: 1200px;
+  width: 100%;
+  background: #0F1320;
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,0.06);
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+}
+
+/* === HEADER === */
+.header {
+  padding: 48px 56px 40px;
+  background: linear-gradient(135deg, #0F1320 0%, #141A2E 100%);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.header-left {
+  flex: 1;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0,102,255,0.12);
+  border: 1px solid rgba(0,102,255,0.2);
+  border-radius: 100px;
+  padding: 6px 16px 6px 12px;
+  margin-bottom: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #4D94FF;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.badge-dot {
+  width: 6px; height: 6px;
+  background: #0066FF;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.header h1 {
+  font-size: 42px;
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1.2;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.header h1 span {
+  background: linear-gradient(135deg, #0066FF, #4D94FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.header p {
+  font-size: 18px;
+  color: rgba(255,255,255,0.5);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.header-right {
+  text-align: right;
+  flex-shrink: 0;
+  margin-left: 40px;
+}
+
+.score {
+  font-size: 64px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #00D4AA, #00F0C0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1;
+}
+
+.score-label {
+  font-size: 14px;
+  color: rgba(255,255,255,0.4);
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+/* === STATS ROW === */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.stat-item {
+  padding: 32px 28px;
+  text-align: center;
+  border-right: 1px solid rgba(255,255,255,0.05);
+  position: relative;
+}
+
+.stat-item:last-child { border-right: none; }
+
+.stat-value {
+  font-size: 36px;
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.stat-value.green { color: #00D4AA; }
+.stat-value.blue { color: #4D94FF; }
+.stat-value.orange { color: #FF9F43; }
+.stat-value.purple { color: #A78BFA; }
+
+.stat-label {
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+  font-weight: 500;
+}
+
+.stat-trend {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 100px;
+  margin-top: 6px;
+}
+
+.stat-trend.up { background: rgba(0,212,170,0.12); color: #00D4AA; }
+.stat-trend.down { background: rgba(255,59,48,0.12); color: #FF3B30; }
+
+/* === BEFORE VS AFTER === */
+.comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.col {
+  padding: 40px 48px;
+}
+
+.col-before {
+  background: rgba(255,59,48,0.03);
+  border-right: 1px solid rgba(255,255,255,0.05);
+}
+
+.col-after {
+  background: rgba(0,212,170,0.03);
+}
+
+.col-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.col-label-before { color: #FF6B6B; }
+.col-label-after { color: #00D4AA; }
+
+.col-label-line {
+  flex: 1;
+  height: 2px;
+  border-radius: 1px;
+}
+
+.col-label-before .col-label-line { background: rgba(255,107,107,0.2); }
+.col-label-after .col-label-line { background: rgba(0,212,170,0.2); }
+
+.col h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 12px;
+}
+
+.col p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.checklist {
+  list-style: none;
+}
+
+.checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  font-size: 14px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.5;
+}
+
+.checklist li:last-child { border-bottom: none; }
+
+.checklist-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.checklist-icon.fail {
+  background: rgba(255,59,48,0.15);
+  color: #FF3B30;
+}
+
+.checklist-icon.pass {
+  background: rgba(0,212,170,0.15);
+  color: #00D4AA;
+}
+
+/* === 10 GATES === */
+.gates-section {
+  padding: 40px 48px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.gates-section h2 {
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.gates-section h2 small {
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.gates-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+}
+
+.gate-item {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.gate-item:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(0,212,170,0.2);
+}
+
+.gate-number {
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.25);
+  margin-bottom: 8px;
+}
+
+.gate-check {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(0,212,170,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px;
+  font-size: 14px;
+}
+
+.gate-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+
+.gate-desc {
+  font-size: 10px;
+  color: rgba(255,255,255,0.35);
+  line-height: 1.4;
+}
+
+/* === SKILL MATRIX === */
+.skills-section {
+  padding: 40px 48px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.skills-section h2 {
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.skill-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 10px;
+  padding: 12px 16px;
+  transition: all 0.2s;
+}
+
+.skill-item:hover {
+  background: rgba(0,102,255,0.05);
+  border-color: rgba(0,102,255,0.15);
+}
+
+.skill-tag {
+  font-size: 10px;
+  font-weight: 700;
+  color: #4D94FF;
+  background: rgba(0,102,255,0.1);
+  padding: 2px 8px;
+  border-radius: 100px;
+  flex-shrink: 0;
+}
+
+.skill-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.3;
+}
+
+.skill-badge {
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 100px;
+  flex-shrink: 0;
+}
+
+.skill-badge.new { background: rgba(0,212,170,0.12); color: #00D4AA; }
+.skill-badge.up { background: rgba(77,148,255,0.12); color: #4D94FF; }
+
+/* === FOOTER === */
+.footer {
+  padding: 28px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.footer-logo {
+  font-size: 18px;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: -0.5px;
+}
+
+.footer-logo span {
+  color: #0066FF;
+}
+
+.footer-tagline {
+  font-size: 12px;
+  color: rgba(255,255,255,0.3);
+  font-weight: 500;
+}
+
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.footer-link {
+  font-size: 12px;
+  color: rgba(255,255,255,0.3);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.footer-link:hover { color: rgba(255,255,255,0.6); }
+
+/* === ARROW DIVIDER === */
+.arrow-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  position: relative;
+  height: 0;
+}
+
+.arrow-divider-inner {
+  position: absolute;
+  top: -14px;
+  z-index: 2;
+  background: #0F1320;
+  padding: 0 16px;
+  font-size: 24px;
+  color: rgba(255,255,255,0.2);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 900px) {
+  .header { flex-direction: column; padding: 32px; }
+  .header-right { margin-left: 0; margin-top: 20px; text-align: left; }
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+  .comparison { grid-template-columns: 1fr; }
+  .col-before { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .gates-grid { grid-template-columns: repeat(3, 1fr); }
+  .skills-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer { flex-direction: column; gap: 16px; text-align: center; }
+}
+
+@media (max-width: 600px) {
+  .header h1 { font-size: 28px; }
+  .stats-row { grid-template-columns: 1fr; }
+  .gates-grid { grid-template-columns: repeat(2, 1fr); }
+  .skills-grid { grid-template-columns: 1fr; }
+  .col { padding: 24px; }
+  .gates-section, .skills-section { padding: 24px; }
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="badge">
+        <span class="badge-dot"></span>
+        RaceOne Engineering
+      </div>
+      <h1>QA <span>Transformation</span></h1>
+      <p>From random clicking to a structured 10-gate QA system —<br>how we rebuilt our quality culture in 3 months</p>
+    </div>
+    <div class="header-right">
+      <div class="score">82</div>
+      <div class="score-label">/ 100 Quality Score</div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-item">
+      <div class="stat-value blue">3 → 7</div>
+      <div class="stat-label">Check Dimensions</div>
+      <span class="stat-trend up">+133%</span>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value green">0→8</div>
+      <div class="stat-label">Bugs Found & Fixed</div>
+      <span class="stat-trend up">∞</span>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value orange">0%→100%</div>
+      <div class="stat-label">Auto-Fix Rate</div>
+      <span class="stat-trend up">Game-changer</span>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value purple">0 → 5</div>
+      <div class="stat-label">New QA Skills</div>
+      <span class="stat-trend up">Skill Matrix</span>
+    </div>
+  </div>
+
+  <!-- BEFORE VS AFTER -->
+  <div class="comparison">
+    <div class="col col-before">
+      <div class="col-label col-label-before">
+        BEFORE
+        <span class="col-label-line"></span>
+      </div>
+      <h3>🕰️ Random Testing</h3>
+      <p>Open the site → click around → "looks fine" → ship it. No structure, no metrics, no coverage.</p>
+      <ul class="checklist">
+        <li><span class="checklist-icon fail">✕</span> No structured test plan</li>
+        <li><span class="checklist-icon fail">✕</span> No API contract verification</li>
+        <li><span class="checklist-icon fail">✕</span> Zero accessibility checks</li>
+        <li><span class="checklist-icon fail">✕</span> Chart colors invisible (hsl(var(--chart-1)) undefined)</li>
+        <li><span class="checklist-icon fail">✕</span> .single() crash risks ignored</li>
+        <li><span class="checklist-icon fail">✕</span> No RLS security audit</li>
+      </ul>
+    </div>
+
+    <div class="col col-after">
+      <div class="col-label col-label-after">
+        AFTER
+        <span class="col-label-line"></span>
+      </div>
+      <h3>⚡ QA Gate v2.0</h3>
+      <p>Structured 5-phase pipeline with 10 iron-clad gates. Every deploy requires all 10 to pass.</p>
+      <ul class="checklist">
+        <li><span class="checklist-icon pass">✓</span> 5-phase structured execution</li>
+        <li><span class="checklist-icon pass">✓</span> API/RLS contract testing (curl + Python)</li>
+        <li><span class="checklist-icon pass">✓</span> axe-core WCAG accessibility scan</li>
+        <li><span class="checklist-icon pass">✓</span> Chart colors → #0066FF / #00D4AA</li>
+        <li><span class="checklist-icon pass">✓</span> .single() → .maybeSingle() audit</li>
+        <li><span class="checklist-icon pass">✓</span> RLS per-role policy verification</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 10 GATES -->
+  <div class="gates-section">
+    <h2>
+      ⚙️ 10 Release QA Gates
+      <small>— All must pass before deployment</small>
+    </h2>
+    <div class="gates-grid">
+      <div class="gate-item">
+        <div class="gate-number">#1</div>
+        <div class="gate-check">✅</div>
+        <div class="gate-name">Build</div>
+        <div class="gate-desc">pnpm run build exit 0</div>
+      </div>
+      <div class="gate-item">
+        <div class="gate-number">#2</div>
+        <div class="gate-check">✅</div>
+        <div class="gate-name">Public Pages</div>
+        <div class="gate-desc">All 6 pages → HTTP 200</div>
+      </div>
+      <div class="gate-item">
+        <div class="gate-number">#3</div>
+        <div class="gate-check">✅</div>
+        <div class="gate-name">Protected Pages</div>
+        <div class="gate-desc">Auth → 307 redirect</div>
+      </div>
+      <div class="gate-item">
+        <div class="gate-number">#4</div>
+        <div class="gate-check">✅</div>
+        <div class="gate-name">DB Tables</div>
+        <div class="gate-desc">All 15 tables present</div>
+      </div>
+      <div class="gate-item">
+        <div class="gate-number">#5</div>
+        <div class="gate-check">✅</div>
+        <div class="gate-name">Middleware</div>
+        <div class="gate-desc">Regex security correct</div>
+      </div>
+      <div class="gate-item">
+        <div class="gate-number">#6</div>
+        <div class="gate-check">✅</div>
+        <div class="gate-name">API Security</div>
+        <div class="gate-desc">Unauthenticated → 401</div>
+      </div>
+      <div class="gate-item">
+        <div class="gate-number">#7</div>
+        <div class="gate-check">✅</div>
+        <div class="gate-name">Forms</div>
+        <div class="gate-desc">try/catch/finally everywhere</div>
+      </div>
+      <div class="gate-item">
+        <div class="gate-number">#8</div>
+        <div class="gate-check">✅</div>
+        <div class="gate-name">.single() Safety</div>
+        <div class="gate-desc">No PGRST116 crashes</div>
+      </div>
+      <div class="gate-item">
+        <div class="gate-number">#9</div>
+        <div class="gate-check">✅</div>
+        <div class="gate-name">Charts</div>
+        <div class="gate-desc">Colors visible, not transparent</div>
+      </div>
+      <div class="gate-item">
+        <div class="gate-number">#10</div>
+        <div class="gate-check">✅</div>
+        <div class="gate-name">Dynamic Totals</div>
+        <div class="gate-desc">Filters update summaries</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SKILL MATRIX -->
+  <div class="skills-section">
+    <h2>🧩 New QA Skill Matrix</h2>
+    <div class="skills-grid">
+      <div class="skill-item">
+        <span class="skill-tag">NEW</span>
+        <span class="skill-name">Contract Testing</span>
+        <span class="skill-badge new">v1.0</span>
+      </div>
+      <div class="skill-item">
+        <span class="skill-tag">NEW</span>
+        <span class="skill-name">Accessibility Testing</span>
+        <span class="skill-badge new">v1.0</span>
+      </div>
+      <div class="skill-item">
+        <span class="skill-tag">NEW</span>
+        <span class="skill-name">CI/CD Pipeline</span>
+        <span class="skill-badge new">v1.0</span>
+      </div>
+      <div class="skill-item">
+        <span class="skill-tag">NEW</span>
+        <span class="skill-name">Performance Testing</span>
+        <span class="skill-badge new">v1.0</span>
+      </div>
+      <div class="skill-item">
+        <span class="skill-tag">NEW</span>
+        <span class="skill-name">Release Engineering</span>
+        <span class="skill-badge new">v1.0</span>
+      </div>
+      <div class="skill-item">
+        <span class="skill-tag">UP</span>
+        <span class="skill-name">QA Methodology v2.0</span>
+        <span class="skill-badge up">v2.0</span>
+      </div>
+      <div class="skill-item">
+        <span class="skill-tag">UP</span>
+        <span class="skill-name">Dogfood QA v1.1</span>
+        <span class="skill-badge up">v1.1</span>
+      </div>
+      <div class="skill-item">
+        <span class="skill-tag">UP</span>
+        <span class="skill-name">Debugging Framework v1.2</span>
+        <span class="skill-badge up">v1.2</span>
+      </div>
+      <div class="skill-item">
+        <span class="skill-tag">UP</span>
+        <span class="skill-name">Release QA Gate v2.0</span>
+        <span class="skill-badge up">v2.0</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-left">
+      <div class="footer-logo">Race<span>One</span></div>
+      <span class="footer-tagline">First to Finish</span>
+    </div>
+    <div class="footer-right">
+      <span class="footer-link">raceone.ai</span>
+      <span class="footer-link" style="color:rgba(255,255,255,0.15);">|</span>
+      <span class="footer-link">38 Software Skills</span>
+      <span class="footer-link" style="color:rgba(255,255,255,0.15);">|</span>
+      <span class="footer-link">82/100 Score</span>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
